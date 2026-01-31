@@ -57,10 +57,10 @@ const Quiz = () => {
       hint: 'True love knows no limits...'
     },
     {
-      question: 'When is Harika\'s birthday?',
-      options: ['November 12, 2006', 'December 12, 2006', 'October 12, 2006', 'November 21, 2006'],
+      question: 'When is Umesh\'s birthday?',
+      options: ['January 9, 2004', 'February 9, 2004', 'January 19, 2004', 'March 9, 2004'],
       correct: 0,
-      hint: 'Umesh never forgets this special day...'
+      hint: 'A special day in January...'
     }
   ];
 

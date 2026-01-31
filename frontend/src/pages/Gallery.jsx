@@ -21,6 +21,18 @@ const Gallery = () => {
       type: 'portrait'
     },
     {
+      src: 'https://customer-assets.emergentagent.com/job_forever-harika/artifacts/hjt3dzmc_Gemini_Generated_Image_mkpvo9mkpvo9mkpv.png',
+      title: 'Our Love',
+      description: 'Together forever, like these two hearts 💕',
+      type: 'couple'
+    },
+    {
+      src: 'https://customer-assets.emergentagent.com/job_forever-harika/artifacts/bsr9c8c0_unnamed.jpg',
+      title: 'Holding Hands',
+      description: 'I want to hold your hand forever 🤝💕',
+      type: 'hands'
+    },
+    {
       src: 'https://customer-assets.emergentagent.com/job_93925170-a54d-46d9-9fdc-793833f769d3/artifacts/2crzbyio_Gemini_Generated_Image_cd75eocd75eocd75.png',
       title: 'Our Special Moment',
       description: 'A memory I treasure forever ✨',

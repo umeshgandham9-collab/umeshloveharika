@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { Heart, Lock, Eye, EyeOff, Sparkles } from 'lucide-react';
 import { Button } from '../components/ui/button';
 import { Input } from '../components/ui/input';
@@ -8,26 +8,31 @@ const LoginPage = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [error, setError] = useState('');
-  const [animationPhase, setAnimationPhase] = useState('walking'); // 'walking', 'opening', 'login'
+  const [animationPhase, setAnimationPhase] = useState('toys'); // 'toys', 'login'
   const [isShaking, setIsShaking] = useState(false);
 
   const CORRECT_PASSWORD = 'Harika@gandham';
-  const UMESH_IMAGE = 'https://customer-assets.emergentagent.com/job_93925170-a54d-46d9-9fdc-793833f769d3/artifacts/hj5x3zmp_umesh1.jpg';
+  
+  // Couple toys image
+  const COUPLE_TOYS_IMAGE = 'https://customer-assets.emergentagent.com/job_forever-harika/artifacts/hjt3dzmc_Gemini_Generated_Image_mkpvo9mkpvo9mkpv.png';
+
+  // Pre-generate random values for hearts to avoid re-renders
+  const heartPositions = useMemo(() => 
+    [...Array(20)].map(() => ({
+      x: Math.random() * 100,
+      size: Math.random() * 30 + 10,
+      duration: Math.random() * 10 + 10,
+      delay: Math.random() * 5
+    })), []
+  );
 
   useEffect(() => {
-    // Animation sequence: walking -> opening -> login form
-    const walkTimer = setTimeout(() => {
-      setAnimationPhase('opening');
-    }, 2000);
-
-    const openTimer = setTimeout(() => {
+    // Show toys for 3 seconds, then reveal login form
+    const timer = setTimeout(() => {
       setAnimationPhase('login');
-    }, 3500);
+    }, 3000);
 
-    return () => {
-      clearTimeout(walkTimer);
-      clearTimeout(openTimer);
-    };
+    return () => clearTimeout(timer);
   }, []);
 
   const handleSubmit = (e) => {
@@ -45,13 +50,13 @@ const LoginPage = ({ onLogin }) => {
     <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden">
       {/* Decorative Hearts Background */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {[...Array(20)].map((_, i) => (
+        {heartPositions.map((heart, i) => (
           <motion.div
             key={i}
             className="absolute"
+            style={{ left: `${heart.x}%` }}
             initial={{ 
-              x: Math.random() * window.innerWidth, 
-              y: window.innerHeight + 50,
+              y: '100vh',
               opacity: 0.3 
             }}
             animate={{ 
@@ -59,16 +64,16 @@ const LoginPage = ({ onLogin }) => {
               opacity: [0.3, 0.6, 0.3]
             }}
             transition={{ 
-              duration: Math.random() * 10 + 10,
+              duration: heart.duration,
               repeat: Infinity,
-              delay: Math.random() * 5
+              delay: heart.delay
             }}
           >
             <Heart 
               className="text-primary/30 fill-primary/20" 
               style={{ 
-                width: Math.random() * 30 + 10,
-                height: Math.random() * 30 + 10
+                width: heart.size,
+                height: heart.size
               }}
             />
           </motion.div>
@@ -77,113 +82,107 @@ const LoginPage = ({ onLogin }) => {
 
       <div className="w-full max-w-md relative z-10">
         <AnimatePresence mode="wait">
-          {/* Phase 1: Umesh Walking In */}
-          {animationPhase === 'walking' && (
+          {/* Phase 1: Couple Toys Animation */}
+          {animationPhase === 'toys' && (
             <motion.div
-              key="walking"
-              className="flex flex-col items-center justify-center h-[500px]"
+              key="toys"
+              className="flex flex-col items-center justify-center h-[550px]"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
+              exit={{ opacity: 0, scale: 0.8 }}
+              transition={{ duration: 0.5 }}
             >
+              {/* Big Couple Toys Image */}
               <motion.div
                 className="relative"
-                initial={{ x: -300, opacity: 0 }}
-                animate={{ x: 0, opacity: 1 }}
-                transition={{ duration: 1.5, ease: "easeOut" }}
+                initial={{ scale: 0, rotate: -10 }}
+                animate={{ scale: 1, rotate: 0 }}
+                transition={{ 
+                  type: "spring",
+                  stiffness: 200,
+                  damping: 15,
+                  duration: 1
+                }}
               >
                 <img
-                  src={UMESH_IMAGE}
-                  alt="Umesh"
-                  className="w-64 h-auto rounded-2xl shadow-2xl"
+                  src={COUPLE_TOYS_IMAGE}
+                  alt="Couple Toys"
+                  className="w-80 h-auto rounded-3xl shadow-2xl"
                   style={{ 
-                    filter: 'drop-shadow(0 0 30px rgba(255, 107, 157, 0.5))'
+                    filter: 'drop-shadow(0 0 40px rgba(255, 107, 157, 0.6))'
                   }}
                 />
+                
+                {/* Floating hearts around image */}
+                <motion.div
+                  className="absolute -top-6 -left-6"
+                  animate={{ 
+                    y: [0, -15, 0],
+                    rotate: [0, 15, 0]
+                  }}
+                  transition={{ duration: 2, repeat: Infinity }}
+                >
+                  <Heart className="w-10 h-10 text-primary fill-primary" />
+                </motion.div>
                 <motion.div
                   className="absolute -top-4 -right-4"
-                  animate={{ rotate: [0, 15, -15, 0] }}
+                  animate={{ 
+                    y: [0, -10, 0],
+                    rotate: [0, -15, 0]
+                  }}
+                  transition={{ duration: 1.5, repeat: Infinity, delay: 0.5 }}
+                >
+                  <Heart className="w-8 h-8 text-pink-400 fill-pink-400" />
+                </motion.div>
+                <motion.div
+                  className="absolute -bottom-4 left-1/2 -translate-x-1/2"
+                  animate={{ scale: [1, 1.2, 1] }}
                   transition={{ duration: 1, repeat: Infinity }}
                 >
-                  <Heart className="w-8 h-8 text-primary fill-primary" />
+                  <Sparkles className="w-12 h-12 text-primary" />
                 </motion.div>
               </motion.div>
-              <motion.p
-                className="mt-6 text-xl font-script text-primary"
+
+              <motion.div
+                className="mt-8 text-center"
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 1 }}
+                transition={{ delay: 0.5 }}
               >
-                Coming to you, Harika... 💕
-              </motion.p>
-            </motion.div>
-          )}
+                <p className="font-script text-3xl text-gradient-love mb-2">
+                  Umesh & Harika
+                </p>
+                <p className="text-muted-foreground text-lg">
+                  Opening our love story... 💕
+                </p>
+              </motion.div>
 
-          {/* Phase 2: Opening Suitcase Animation */}
-          {animationPhase === 'opening' && (
-            <motion.div
-              key="opening"
-              className="flex flex-col items-center justify-center h-[500px]"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-            >
-              <div className="relative perspective-1000">
-                {/* Suitcase */}
-                <div className="relative w-72 h-48">
-                  {/* Suitcase Body */}
-                  <div className="absolute bottom-0 w-full h-24 bg-gradient-to-b from-rose-900 to-rose-950 rounded-lg border-2 border-rose-700 shadow-xl">
-                    {/* Handle */}
-                    <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 w-16 h-4 bg-rose-800 rounded-full border border-rose-600" />
-                    {/* Lock */}
-                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                      <Lock className="w-6 h-6 text-yellow-500" />
-                    </div>
-                  </div>
-                  
-                  {/* Suitcase Lid */}
-                  <motion.div
-                    className="absolute bottom-24 w-full h-24 bg-gradient-to-t from-rose-900 to-rose-800 rounded-t-lg border-2 border-rose-700 origin-bottom"
-                    initial={{ rotateX: 0 }}
-                    animate={{ rotateX: -120 }}
-                    transition={{ duration: 1, delay: 0.5 }}
-                    style={{ transformStyle: 'preserve-3d' }}
-                  >
-                    {/* Lock on lid */}
-                    <div className="absolute bottom-2 left-1/2 transform -translate-x-1/2">
-                      <div className="w-4 h-4 bg-yellow-500 rounded-sm" />
-                    </div>
-                  </motion.div>
-
-                  {/* Content inside (hearts and sparkles) */}
-                  <motion.div
-                    className="absolute bottom-6 left-1/2 transform -translate-x-1/2"
-                    initial={{ opacity: 0, scale: 0 }}
-                    animate={{ opacity: 1, scale: 1 }}
-                    transition={{ delay: 1 }}
-                  >
-                    <Sparkles className="w-16 h-16 text-primary animate-pulse" />
-                  </motion.div>
-                </div>
-              </div>
-              <motion.p
-                className="mt-8 text-xl font-script text-primary"
+              {/* Loading dots */}
+              <motion.div 
+                className="flex gap-2 mt-6"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 transition={{ delay: 1 }}
               >
-                Opening my heart for you...
-              </motion.p>
+                {[0, 1, 2].map((i) => (
+                  <motion.div
+                    key={i}
+                    className="w-3 h-3 rounded-full bg-primary"
+                    animate={{ scale: [1, 1.5, 1], opacity: [0.5, 1, 0.5] }}
+                    transition={{ duration: 0.8, repeat: Infinity, delay: i * 0.2 }}
+                  />
+                ))}
+              </motion.div>
             </motion.div>
           )}
 
-          {/* Phase 3: Login Form */}
+          {/* Phase 2: Login Form */}
           {animationPhase === 'login' && (
             <motion.div
               key="login"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.5 }}
+              initial={{ opacity: 0, scale: 0.9, y: 50 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              transition={{ duration: 0.6, type: "spring" }}
             >
               {/* Glassmorphism Login Card */}
               <motion.div
@@ -261,7 +260,7 @@ const LoginPage = ({ onLogin }) => {
                 {/* Hint */}
                 <div className="mt-6 text-center relative z-10">
                   <p className="text-xs text-muted-foreground">
-                    💡 Hint: Your name + "@" + something close to your heart
+                    💡 Hint: Your name + &quot;@&quot; + something close to your heart
                   </p>
                 </div>
               </motion.div>
@@ -286,9 +285,6 @@ const LoginPage = ({ onLogin }) => {
         }
         .animate-shake {
           animation: shake 0.5s ease-in-out;
-        }
-        .perspective-1000 {
-          perspective: 1000px;
         }
       `}</style>
     </div>
