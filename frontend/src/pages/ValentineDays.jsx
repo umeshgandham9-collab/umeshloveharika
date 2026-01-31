@@ -15,6 +15,7 @@ const ValentineDays = () => {
       color: 'from-red-500 to-rose-500',
       bgColor: 'bg-red-500/10',
       description: 'The day to express love with roses',
+      image: 'https://images.unsplash.com/photo-1550015296-7fd664acc768?w=400&h=300&fit=crop',
       content: `Dear Harika,
 
 If I could give you a rose for every time you made me smile, you'd have a garden that would stretch to infinity.
@@ -36,6 +37,7 @@ Umesh 🌹`
       color: 'from-pink-500 to-red-500',
       bgColor: 'bg-pink-500/10',
       description: 'The day to propose your love',
+      image: 'https://images.unsplash.com/photo-1518199266791-5375a83190b7?w=400&h=300&fit=crop',
       content: `My Dearest Harika,
 
 On this Propose Day, I don't just want to propose love - I want to propose a lifetime together.
@@ -57,6 +59,7 @@ Umesh 💕`
       color: 'from-amber-600 to-orange-600',
       bgColor: 'bg-amber-600/10',
       description: 'The day to share sweetness',
+      image: 'https://images.unsplash.com/photo-1582176604856-e824b4736522?w=400&h=300&fit=crop',
       content: `Sweet Harika,
 
 Like chocolate melts in warmth, my heart melts when I see your smile.
@@ -78,6 +81,7 @@ Umesh 🍫`
       color: 'from-yellow-500 to-amber-500',
       bgColor: 'bg-yellow-500/10',
       description: 'The day to gift soft toys',
+      image: 'https://images.unsplash.com/photo-1602734846297-9299fc2d4703?w=400&h=300&fit=crop',
       content: `Cuddle Buddy Harika,
 
 If I were a teddy bear, I would want to be held by you forever.
@@ -99,6 +103,7 @@ Umesh 🧸`
       color: 'from-emerald-500 to-teal-500',
       bgColor: 'bg-emerald-500/10',
       description: 'The day to make promises',
+      image: 'https://images.unsplash.com/photo-1529333166437-7750a6dd5a70?w=400&h=300&fit=crop',
       content: `My Promise, Harika,
 
 Today I make these promises to you, with my whole heart:
@@ -122,6 +127,7 @@ Umesh 🤞`
       color: 'from-blue-500 to-indigo-500',
       bgColor: 'bg-blue-500/10',
       description: 'The day for warm hugs',
+      image: 'https://images.unsplash.com/photo-1516589178581-6cd7833ae3b2?w=400&h=300&fit=crop',
       content: `Warmest Harika,
 
 A hug from you is my favorite feeling in the world.
@@ -146,6 +152,7 @@ Umesh 🤗`
       color: 'from-rose-500 to-pink-500',
       bgColor: 'bg-rose-500/10',
       description: 'The day for sweet kisses',
+      image: 'https://images.unsplash.com/photo-1541385496969-a3edfa5a94ed?w=400&h=300&fit=crop',
       content: `Precious Harika,
 
 A kiss is the most beautiful way to say what words cannot express.
@@ -167,6 +174,7 @@ Umesh 💋`
       color: 'from-red-500 to-pink-500',
       bgColor: 'bg-red-500/10',
       description: 'The day of love',
+      image: 'https://images.unsplash.com/photo-1517856713891-215e57a13c0d?w=400&h=300&fit=crop',
       content: `My Valentine, Harika,
 
 Today is the day the world celebrates love, and I celebrate YOU.
@@ -225,18 +233,31 @@ P.S. Please give me another chance. I promise to be better. 🙏`
                 transition={{ delay: index * 0.1 }}
               >
                 <Card
-                  className={`valentine-card glass p-6 cursor-pointer border-border/50 hover:border-primary/50 h-full flex flex-col`}
+                  className={`valentine-card glass p-0 cursor-pointer border-border/50 hover:border-primary/50 h-full flex flex-col overflow-hidden`}
                   onClick={() => setSelectedDay(day)}
                 >
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${day.color} flex items-center justify-center mb-4`}>
-                    <Icon className="w-8 h-8 text-white" />
+                  {/* Image */}
+                  <div className="relative h-40 overflow-hidden">
+                    <img
+                      src={day.image}
+                      alt={day.name}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className={`absolute top-3 right-3 w-12 h-12 rounded-xl bg-gradient-to-br ${day.color} flex items-center justify-center`}>
+                      <Icon className="w-6 h-6 text-white" />
+                    </div>
                   </div>
-                  <p className="text-sm text-primary mb-1">{day.date}</p>
-                  <h3 className="font-display text-xl text-foreground mb-2">{day.name}</h3>
-                  <p className="text-muted-foreground text-sm flex-1">{day.description}</p>
-                  <div className="mt-4 flex items-center gap-2 text-primary">
-                    <span className="text-sm font-medium">Read Message</span>
-                    <Heart className="w-4 h-4" />
+                  
+                  {/* Content */}
+                  <div className="p-4 flex flex-col flex-1">
+                    <p className="text-sm text-primary mb-1">{day.date}</p>
+                    <h3 className="font-display text-xl text-foreground mb-2">{day.name}</h3>
+                    <p className="text-muted-foreground text-sm flex-1">{day.description}</p>
+                    <div className="mt-4 flex items-center gap-2 text-primary">
+                      <span className="text-sm font-medium">Read Message</span>
+                      <Heart className="w-4 h-4" />
+                    </div>
                   </div>
                 </Card>
               </motion.div>
@@ -250,8 +271,19 @@ P.S. Please give me another chance. I promise to be better. 🙏`
             <Dialog open={!!selectedDay} onOpenChange={() => setSelectedDay(null)}>
               <DialogContent className="glass-strong max-w-2xl max-h-[80vh] overflow-y-auto border-primary/20">
                 <DialogHeader>
-                  <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${selectedDay.color} flex items-center justify-center mb-4 mx-auto`}>
-                    {React.createElement(selectedDay.icon, { className: "w-8 h-8 text-white" })}
+                  {/* Image in modal */}
+                  <div className="relative h-48 -mx-6 -mt-6 mb-4 overflow-hidden rounded-t-lg">
+                    <img
+                      src={selectedDay.image}
+                      alt={selectedDay.name}
+                      className="w-full h-full object-cover"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-center">
+                      <div className={`w-16 h-16 mx-auto rounded-2xl bg-gradient-to-br ${selectedDay.color} flex items-center justify-center mb-2`}>
+                        {React.createElement(selectedDay.icon, { className: "w-8 h-8 text-white" })}
+                      </div>
+                    </div>
                   </div>
                   <DialogTitle className="font-display text-2xl text-center">
                     {selectedDay.name}
