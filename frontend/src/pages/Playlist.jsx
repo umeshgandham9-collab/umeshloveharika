@@ -23,27 +23,27 @@ const Playlist = () => {
     },
     {
       id: 'Q1iskzwrcFU',
-      title: 'Nee Kannu Neeli Samudram',
-      movie: 'Uppena',
-      message: 'Lost in your eyes like the deep blue sea...'
+      title: 'Hridayam Lopala',
+      movie: 'Kingdom',
+      message: 'Deep in my heart, a war is going on for you... 💕'
     },
     {
       id: 'aoo9QkKRNgI',
-      title: 'Ee Raathale',
-      movie: 'Radhe Shyam',
-      message: 'Every night I think of you... 🌙'
+      title: 'Chustu Chustune Rojulu Gadiche',
+      movie: 'Original',
+      message: 'Days pass by just looking at you... 🌙'
     },
     {
       id: 'ySPKnRY56Cc',
-      title: 'O Pilla Subhanallah',
-      movie: 'Ala Modalaindi',
-      message: 'Subhanallah - you are a blessing in my life!'
+      title: 'Ayyayyo',
+      movie: 'Mem Famous',
+      message: 'Ayyayyo - you make my heart go crazy!'
     },
     {
       id: 'EnMfK-XAtI0',
-      title: 'Chuttamalle',
-      movie: 'Devara',
-      message: 'My heart beats only for you... 💓'
+      title: 'Gumma',
+      movie: 'Ambajipeta Marriage Band',
+      message: 'Hey cute girl, my world has changed... 💓'
     },
     {
       id: 'CS7hBHVGWs0',
@@ -59,9 +59,9 @@ const Playlist = () => {
     },
     {
       id: 'hYFzyK9ExuM',
-      title: 'Oosupodu',
-      movie: 'Fidaa',
-      message: 'Sweet memories of us together...'
+      title: 'Oh Sita Hey Rama',
+      movie: 'Sita Ramam',
+      message: 'Oh Sita, I will be your companion forever...'
     },
     {
       id: 'Yzl8Zys4eRs',
@@ -71,9 +71,9 @@ const Playlist = () => {
     },
     {
       id: '2zR4TNTXB6I',
-      title: 'Priya Priya',
-      movie: 'Varsham',
-      message: 'You are my Priya, my love, my everything... 💕'
+      title: 'Inthandham',
+      movie: 'Sita Ramam',
+      message: 'You are my everything, my love... 💕'
     }
   ];
 
