@@ -68,6 +68,12 @@ const Playlist = () => {
       title: 'Vachinde',
       movie: 'Fidaa',
       message: 'When love comes calling, nothing else matters...'
+    },
+    {
+      id: '2zR4TNTXB6I',
+      title: 'Priya Priya',
+      movie: 'Varsham',
+      message: 'You are my Priya, my love, my everything... 💕'
     }
   ];
 
