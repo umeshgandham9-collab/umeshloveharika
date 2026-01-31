@@ -97,11 +97,12 @@ const Gallery = () => {
                 className="valentine-card glass overflow-hidden cursor-pointer group border-border/50 hover:border-primary/50"
                 onClick={() => openLightbox(index)}
               >
-                <div className="aspect-square relative overflow-hidden">
+                <div className="aspect-square relative overflow-hidden bg-muted">
                   <img
                     src={image.src}
                     alt={image.title}
                     className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    style={{ objectPosition: image.type === 'portrait' ? 'center 25%' : 'center center' }}
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   
